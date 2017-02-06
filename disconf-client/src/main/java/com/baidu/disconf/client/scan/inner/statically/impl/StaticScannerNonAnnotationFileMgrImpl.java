@@ -89,7 +89,7 @@ public class StaticScannerNonAnnotationFileMgrImpl extends StaticScannerMgrImplB
 
         //
         // disConfCommonModel
-        DisConfCommonModel disConfCommonModel = makeDisConfCommonModel("", "", "");
+        DisConfCommonModel disConfCommonModel = makeDisConfCommonModel(fileName);
         disconfCenterFile.setDisConfCommonModel(disConfCommonModel);
 
         // Remote URL

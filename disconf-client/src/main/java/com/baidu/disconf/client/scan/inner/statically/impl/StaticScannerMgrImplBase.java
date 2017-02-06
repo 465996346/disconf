@@ -1,5 +1,7 @@
 package com.baidu.disconf.client.scan.inner.statically.impl;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.baidu.disconf.client.common.model.DisConfCommonModel;
 import com.baidu.disconf.client.config.DisClientConfig;
 
@@ -40,4 +42,19 @@ public class StaticScannerMgrImplBase {
         return disConfCommonModel;
     }
 
+    /**
+     * 通过配置的通用app通配符匹配该配置文件是否是通用配置如果是通用配置则返回通用配置信息
+     * @param fileName
+     * @return
+     * @author 张鹏
+     */
+    protected static DisConfCommonModel makeDisConfCommonModel(String fileName) {
+    	if (StringUtils.isBlank(fileName)) {
+    		return makeDisConfCommonModel("", "", "");
+    	}
+    	if (fileName.contains(DisClientConfig.getInstance().COMMON_APP_LOCATION_MATCHES)) {
+    		return makeDisConfCommonModel(DisClientConfig.getInstance().COMMON_APP, DisClientConfig.getInstance().COMMON_APP_ENV, DisClientConfig.getInstance().COMMON_APP_VERSION);
+    	}
+    	return makeDisConfCommonModel("", "", "");
+    }
 }

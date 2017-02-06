@@ -184,6 +184,42 @@ public final class DisClientConfig {
      */
     @DisInnerConfigAnnotation(name = "disconf.conf_server_url_retry_sleep_seconds", defaultValue = "2")
     public int confServerUrlRetrySleepSeconds = 2;
+    
+    /**
+     * 通用app名称
+     * @author 张鹏
+     * @version 2017-02-06
+     */
+    public static final String COMMON_APP_NAME = "disconf.common_app";
+    @DisInnerConfigAnnotation(name = COMMON_APP_NAME, defaultValue = "common")
+    public String COMMON_APP;
+    
+    /**
+     * 通用app版本
+     * @author 张鹏
+     * @version 2017-02-06
+     */
+    public static final String COMMON_APP_VERSION_NAME = "disconf.common_app_version";
+    @DisInnerConfigAnnotation(name = COMMON_APP_VERSION_NAME, defaultValue = Constants.VERSION)
+    public String COMMON_APP_VERSION;
+    
+    /**
+     * 通用app环境
+     * @author 张鹏
+     * @version 2017-02-06
+     */
+    public static final String COMMON_APP_ENV_NAME = "disconf.common_app_env";
+    @DisInnerConfigAnnotation(name = COMMON_APP_ENV_NAME)
+    public String COMMON_APP_ENV;
+    
+    /**
+     * 通用资源地址匹配符
+     * @author 张鹏
+     * @version 2017-02-06
+     */
+    public static final String COMMON_APP_LOCATION_MATCHES_NAME = "disconf.common_location_matches";
+    @DisInnerConfigAnnotation(name = COMMON_APP_LOCATION_MATCHES_NAME, defaultValue = "common")
+    public String COMMON_APP_LOCATION_MATCHES;
 
     /**
      * 让下载文件夹放在 classpath目录 下
