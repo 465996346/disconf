@@ -1,5 +1,7 @@
 package com.baidu.disconf.client.scan.inner.statically.impl;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.baidu.disconf.client.common.model.DisConfCommonModel;
@@ -52,9 +54,13 @@ public class StaticScannerMgrImplBase {
     	if (StringUtils.isBlank(fileName)) {
     		return makeDisConfCommonModel("", "", "");
     	}
-    	if (fileName.contains(DisClientConfig.getInstance().COMMON_APP_LOCATION_MATCHES)) {
-    		return makeDisConfCommonModel(DisClientConfig.getInstance().COMMON_APP, DisClientConfig.getInstance().COMMON_APP_ENV, DisClientConfig.getInstance().COMMON_APP_VERSION);
-    	}
+    	if (DisClientConfig.getInstance().APP_CONF_FILES_NAME != null) {
+			String[] configFiles = DisClientConfig.getInstance().APP_CONF_FILES_NAME.split(",");
+			if (Arrays.asList(configFiles).contains(fileName)) {
+				return makeDisConfCommonModel(DisClientConfig.getInstance().COMMON_APP,
+						DisClientConfig.getInstance().COMMON_APP_ENV, DisClientConfig.getInstance().COMMON_APP_VERSION);
+			}
+		}
     	return makeDisConfCommonModel("", "", "");
     }
 }

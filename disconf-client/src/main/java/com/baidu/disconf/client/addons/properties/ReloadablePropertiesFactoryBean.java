@@ -3,10 +3,12 @@ package com.baidu.disconf.client.addons.properties;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -14,10 +16,14 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.baidu.disconf.client.DisconfMgr;
+import com.baidu.disconf.client.config.DisClientConfig;
 
 /**
  * A properties factory bean that creates a reconfigurable Properties object.
@@ -29,8 +35,7 @@ import com.baidu.disconf.client.DisconfMgr;
 public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean implements DisposableBean,
         ApplicationContextAware {
 
-    private static ApplicationContext applicationContext;
-
+	private ApplicationContext applicationContext;
     protected static final Logger log = LoggerFactory.getLogger(ReloadablePropertiesFactoryBean.class);
 
     private Resource[] locations;
@@ -47,12 +52,30 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
         list.add(fileNames);
         setLocations(list);
     }
+    
+
+	/**
+	 * 加入disconf配置文件中扩展的配置文件名称，可将托管的配置文件配在disconf配置文件里
+	 * 
+	 * @param fileNames
+	 * @author 张鹏
+	 */
+	private void addExtFilesName(List<String> fileNames) {
+		String extFileNames = DisClientConfig.getInstance().APP_CONF_FILES_NAME;
+		if (null != extFileNames && !"".equals(extFileNames.trim())) {
+			String[] split = extFileNames.split(",");
+			if (ArrayUtils.isNotEmpty(split)) {
+				fileNames.addAll(0, Arrays.asList(split));
+			}
+		}
+	}
 
     /**
      */
     public void setLocations(List<String> fileNames) {
 
         List<Resource> resources = new ArrayList<Resource>();
+        addExtFilesName(fileNames);
         for (String filename : fileNames) {
 
             // trim
@@ -226,6 +249,7 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
      */
     private void doReload() throws IOException {
         reloadableProperties.setProperties(mergeProperties());
+        injectToEnv();
     }
 
     /**
@@ -238,7 +262,23 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+    	this.applicationContext = applicationContext;
+    	try {
+			injectToEnv();
+		} catch (IOException e) {
+			throw new RuntimeException("inject into env orrcors error", e);
+		}
+    }
+    
+    /**
+     * 把配置添加入环境
+     * @throws IOException
+     * @author 张鹏
+     */
+    private void injectToEnv() throws IOException{
+		Environment environment = applicationContext.getEnvironment();
+		ConfigurableEnvironment env = (ConfigurableEnvironment) environment;
+		env.getPropertySources().addFirst(new PropertiesPropertySource("wireless-application", mergeProperties()));
     }
 
     /**
