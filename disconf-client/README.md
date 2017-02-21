@@ -4,7 +4,7 @@ disconf-client
 分布式配置管理客户端模块
 
 前提：
-先去disconf服务器上面去上传自己项目的配置文件（地址: http://192.168.11.20/  账号密码都是admin）
+先去disconf服务器上面去上传自己项目的配置文件
 >
 1. 添加app，app名称对应自己项目
 2. 添加配置文件，版本自定一般为1_0_0_0，然后选择输入方式，key值填specific.properties下面值填写自己所需要的配置（注：该key：specific.properties 必须配置），配置的app名称和版本需和disconf配置文件中一致
