@@ -248,8 +248,9 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
      * @throws IOException
      */
     private void doReload() throws IOException {
-        reloadableProperties.setProperties(mergeProperties());
-        injectToEnv();
+        Properties mergeProperties = mergeProperties();
+		reloadableProperties.setProperties(mergeProperties);
+        injectToEnv(mergeProperties);
     }
 
     /**
@@ -263,11 +264,6 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
     	this.applicationContext = applicationContext;
-    	try {
-			injectToEnv();
-		} catch (IOException e) {
-			throw new RuntimeException("inject into env orrcors error", e);
-		}
     }
     
     /**
@@ -275,10 +271,10 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
      * @throws IOException
      * @author 张鹏
      */
-    private void injectToEnv() throws IOException{
+    private void injectToEnv(Properties properties) throws IOException{
 		Environment environment = applicationContext.getEnvironment();
 		ConfigurableEnvironment env = (ConfigurableEnvironment) environment;
-		env.getPropertySources().addFirst(new PropertiesPropertySource("wireless-application", mergeProperties()));
+		env.getPropertySources().addFirst(new PropertiesPropertySource("wireless-application", properties));
     }
 
     /**
