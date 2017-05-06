@@ -187,7 +187,6 @@ public final class DisClientConfig {
     
     /**
      * 通用app名称
-     * @author 张鹏
      */
     public static final String COMMON_APP_NAME = "disconf.common_app";
     @DisInnerConfigAnnotation(name = COMMON_APP_NAME, defaultValue = "common")
@@ -195,7 +194,6 @@ public final class DisClientConfig {
     
     /**
      * 通用app版本
-     * @author 张鹏
      */
     public static final String COMMON_APP_VERSION_NAME = "disconf.common_app_version";
     @DisInnerConfigAnnotation(name = COMMON_APP_VERSION_NAME, defaultValue = Constants.VERSION)
@@ -203,7 +201,6 @@ public final class DisClientConfig {
     
     /**
      * 通用app环境
-     * @author 张鹏
      */
     public static final String COMMON_APP_ENV_NAME = "disconf.common_app_env";
     @DisInnerConfigAnnotation(name = COMMON_APP_ENV_NAME)
@@ -211,7 +208,6 @@ public final class DisClientConfig {
     
     /**
      * 通用资源地址匹配符
-     * @author 张鹏
      */
     public static final String COMMON_APP_LOCATION_MATCHES_NAME = "disconf.common_location_matches";
     @DisInnerConfigAnnotation(name = COMMON_APP_LOCATION_MATCHES_NAME, defaultValue = "common")
@@ -228,11 +224,17 @@ public final class DisClientConfig {
     
     /**
      * APP配置文件扩展同xml内配置（可将托管的配置文件配在disconf配置文件里）
-     * @author 张鹏
      */
     public static final String APP_CONF_FILES_NAME_NAME = "disconf.app_conf_files_name";
     @DisInnerConfigAnnotation(name = APP_CONF_FILES_NAME_NAME, defaultValue = "")
     public String APP_CONF_FILES_NAME;
+    
+    /**
+     * APP配置文件扩展同xml内配置（可将托管的配置文件配在disconf配置文件里）
+     */
+    public static final String COMMON_APP_CONF_FILES_NAME_NAME = "disconf.common_app_conf_files_name";
+    @DisInnerConfigAnnotation(name = COMMON_APP_CONF_FILES_NAME_NAME, defaultValue = "")
+    public String COMMON_APP_CONF_FILES_NAME;
 
     public List<String> getHostList() {
         return hostList;

@@ -53,21 +53,39 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
         setLocations(list);
     }
     
-
-	/**
-	 * 加入disconf配置文件中扩展的配置文件名称，可将托管的配置文件配在disconf配置文件里
-	 * 
-	 * @param fileNames
-	 * @author 张鹏
-	 */
-	private void addExtFilesName(List<String> fileNames) {
-		String extFileNames = DisClientConfig.getInstance().APP_CONF_FILES_NAME;
-		if (null != extFileNames && !"".equals(extFileNames.trim())) {
-			String[] split = extFileNames.split(",");
+    /**
+     * @author Zhu
+     * @date 2017年2月21日 下午8:59:11
+     * @description 
+     * @param fileNames
+     * @param configArrStr
+     */
+    private void addFile(List<String> fileNames, String configArrStr){
+    	if (null != configArrStr && !"".equals(configArrStr.trim())) {
+			String[] split = configArrStr.split(",");
 			if (ArrayUtils.isNotEmpty(split)) {
 				fileNames.addAll(0, Arrays.asList(split));
 			}
 		}
+    }
+    
+
+	/**
+	 * 加入common app disconf配置文件中扩展的配置文件名称，可将托管的配置文件配在disconf配置文件里
+	 * 
+	 * @param fileNames
+	 */
+	private void addExtFilesName(List<String> fileNames) {
+		addFile(fileNames, DisClientConfig.getInstance().COMMON_APP_CONF_FILES_NAME);
+	}
+	
+	/**
+	 * 加入app disconf配置文件中扩展的配置文件名称，可将托管的配置文件配在disconf配置文件里
+	 * 
+	 * @param fileNames
+	 */
+	private void addSpecificFilesName(List<String> fileNames) {
+		addFile(fileNames, DisClientConfig.getInstance().APP_CONF_FILES_NAME);
 	}
 
     /**
@@ -75,6 +93,7 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
     public void setLocations(List<String> fileNames) {
 
         List<Resource> resources = new ArrayList<Resource>();
+        addSpecificFilesName(fileNames);
         addExtFilesName(fileNames);
         for (String filename : fileNames) {
 
@@ -248,9 +267,9 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
      * @throws IOException
      */
     private void doReload() throws IOException {
-        Properties mergeProperties = mergeProperties();
-		reloadableProperties.setProperties(mergeProperties);
-        injectToEnv(mergeProperties);
+        Properties properties = mergeProperties();
+		reloadableProperties.setProperties(properties);
+        injectToEnv(properties);
     }
 
     /**
@@ -266,11 +285,6 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
     	this.applicationContext = applicationContext;
     }
     
-    /**
-     * 把配置添加入环境
-     * @throws IOException
-     * @author 张鹏
-     */
     private void injectToEnv(Properties properties) throws IOException{
 		Environment environment = applicationContext.getEnvironment();
 		ConfigurableEnvironment env = (ConfigurableEnvironment) environment;
