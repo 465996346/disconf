@@ -288,7 +288,7 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
     private void injectToEnv(Properties properties) throws IOException{
 		Environment environment = applicationContext.getEnvironment();
 		ConfigurableEnvironment env = (ConfigurableEnvironment) environment;
-		env.getPropertySources().addFirst(new PropertiesPropertySource("wireless-application", properties));
+		env.getPropertySources().addFirst(new PropertiesPropertySource("application", properties));
     }
 
     /**
