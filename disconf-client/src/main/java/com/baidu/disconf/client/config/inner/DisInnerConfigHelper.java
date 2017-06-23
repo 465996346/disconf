@@ -75,7 +75,41 @@ public class DisInnerConfigHelper {
             throw new Exception("settings: " + DisClientConfig.ENV_NAME + "  cannot find");
         }
         LOGGER.info("SERVER " + DisClientConfig.ENV_NAME + ": " + DisClientConfig.getInstance().ENV);
+        
+        // COMMON APP NAME
+        if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP)) {
 
+            throw new Exception("settings: " + DisClientConfig.COMMON_APP_NAME + "  cannot find");
+        }
+        LOGGER.info("SERVER " + DisClientConfig.COMMON_APP_NAME + ": " + DisClientConfig.getInstance().COMMON_APP);
+        
+        // COMMON APP ENV
+        if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP_ENV)) {
+
+            throw new Exception("settings: " + DisClientConfig.COMMON_APP_ENV_NAME + "  cannot find");
+        }
+        LOGGER.info("SERVER " + DisClientConfig.COMMON_APP_ENV_NAME + ": " + DisClientConfig.getInstance().COMMON_APP_ENV);
+        
+        // COMMON APP CONF FILES NAME
+        if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP_CONF_FILES_NAME)) {
+
+            throw new Exception("settings: " + DisClientConfig.COMMON_APP_CONF_FILES_NAME_NAME + "  cannot find");
+        }
+        LOGGER.info("SERVER " + DisClientConfig.COMMON_APP_CONF_FILES_NAME_NAME + ": " + DisClientConfig.getInstance().COMMON_APP_CONF_FILES_NAME);
+        
+        // COMMON APP VERSION
+        if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP_VERSION)) {
+
+            throw new Exception("settings: " + DisClientConfig.COMMON_APP_VERSION_NAME + "  cannot find");
+        }
+        
+        // COMMON APP LOCATION MATCHES
+        if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP_LOCATION_MATCHES)) {
+
+            throw new Exception("settings: " + DisClientConfig.COMMON_APP_LOCATION_MATCHES_NAME + "  cannot find");
+        }
+        LOGGER.info("SERVER " + DisClientConfig.COMMON_APP_LOCATION_MATCHES_NAME + ": " + DisClientConfig.getInstance().COMMON_APP_LOCATION_MATCHES);
+        
         //
         // 是否使用远程的配置
         LOGGER.info("SERVER disconf.enable.remote.conf: " + DisClientConfig.getInstance().ENABLE_DISCONF);
