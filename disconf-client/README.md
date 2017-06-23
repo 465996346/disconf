@@ -23,7 +23,7 @@ a. 添加依赖
 b. 添加disconf配置在根目录（resources目录下）
 ```
 disconf.enable.remote.conf=true
-disconf.conf_server_host=http://disconf.dianwoda.com
+disconf.conf_server_host=http://disconf.xxx.com
 disconf.version=1_0_0_0
 disconf.app=order_service
 disconf.env=qa
