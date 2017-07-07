@@ -22,6 +22,20 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
+    
+    <!-- 配置部署的仓库 -->
+	<distributionManagement>
+		<repository>
+			<id>yunjee_release</id>
+			<name>Yunjee Release Repository</name>
+			<url>http://code.yunjee.net/nexus/content/repositories/yunjee_release</url>
+		</repository>
+		<snapshotRepository>
+			<id>yunjee</id>
+			<name>Yunjee Snapshot Repository</name>
+			<url>http://code.yunjee.net/nexus/content/repositories/yunjee</url>
+		</snapshotRepository>
+	</distributionManagement>
 
     <properties>
         <!-- 模块版本号 -->

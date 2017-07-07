@@ -85,8 +85,7 @@ public class DisInnerConfigHelper {
         
         // COMMON APP ENV
         if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP_ENV)) {
-
-            throw new Exception("settings: " + DisClientConfig.COMMON_APP_ENV_NAME + "  cannot find");
+            DisClientConfig.getInstance().COMMON_APP_ENV = DisClientConfig.getInstance().ENV;
         }
         LOGGER.info("SERVER " + DisClientConfig.COMMON_APP_ENV_NAME + ": " + DisClientConfig.getInstance().COMMON_APP_ENV);
         
@@ -99,7 +98,6 @@ public class DisInnerConfigHelper {
         
         // COMMON APP VERSION
         if (StringUtils.isEmpty(DisClientConfig.getInstance().COMMON_APP_VERSION)) {
-
             throw new Exception("settings: " + DisClientConfig.COMMON_APP_VERSION_NAME + "  cannot find");
         }
         
