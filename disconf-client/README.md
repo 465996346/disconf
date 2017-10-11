@@ -15,10 +15,10 @@ disconf-client
 a. 添加依赖
 ```
 		<dependency>
-			<groupId>com.dianwoba</groupId>
-			<artifactId>config-center-client</artifactId>
+			<groupId>com.xxx</groupId>
+			<artifactId>config-center</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>	
+		</dependency>
 ```
 b. 添加disconf配置在根目录（resources目录下）
 ```
