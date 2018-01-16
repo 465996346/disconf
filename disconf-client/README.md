@@ -36,7 +36,7 @@ disconf.app_conf_files_name=common.properties,datasource-user.properties,datasou
 c. 修改/添加AppConext扫描配置文件路径
 
 ```
-package com.dianwoba.order.config;
+package com.xxx.order.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
