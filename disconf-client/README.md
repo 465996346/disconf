@@ -7,7 +7,7 @@ disconf-client
 先去disconf服务器上面去上传自己项目的配置文件
 >
 1. 添加app，app名称对应自己项目
-2. 添加配置文件，版本自定一般为1_0_0_0，然后选择输入方式，key值填specific.properties下面值填写自己所需要的配置（注：该key：specific.properties 必须配置），配置的app名称和版本需和disconf配置文件中一致
+2. 添加配置文件，版本自定一般为1_0_0_0，然后选择输入方式，key值填 general.properties下面值填写自己所需要的配置（注：该key：general.properties 必须配置），配置的app名称和版本需和disconf配置文件中一致
 
 
 对接三部曲：
@@ -15,10 +15,10 @@ disconf-client
 a. 添加依赖
 ```
 		<dependency>
-			<groupId>com.dianwoba</groupId>
-			<artifactId>config-center-client</artifactId>
+			<groupId>com.xxx</groupId>
+			<artifactId>config-center</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>	
+		</dependency>
 ```
 b. 添加disconf配置在根目录（resources目录下）
 ```
